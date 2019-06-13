@@ -28,7 +28,7 @@ o to give back to the RogueLikeDev community I documented my steps and made this
 
   Sometimes the installer wants you to place it under C:\Program Files\mingw etc. but i placed it in 
   
-    C:\MinGW-W64. 
+    C:\MinGW-W64
     
   The folder contains a mingw-w64.bat, a link to mingw website, uninstaller and a folder called mingw64.
 

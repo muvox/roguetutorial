@@ -78,7 +78,7 @@ o to give back to the RogueLikeDev community I documented my steps and made this
     build directory of your project. If you built the basic hello world program, you project folder
     should have a cmake-build-debug folder. Place the three files there.
 
-7. Next we tackle the infamous CMakeLists.txt. Under the "set(CMAKE_CZZ_STANDARD 14)" line, I added the following:
+7. Next we tackle the infamous CMakeLists.txt. Under the "set(CMAKE_CXX_STANDARD 14)" line, I added the following:
 
       Linker flags so we dont need to send mingw dll files if we want to share our small .exe:
       

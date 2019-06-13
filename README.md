@@ -26,53 +26,57 @@ o to give back to the RogueLikeDev community I documented my steps and made this
           - Exception seh
           - Build revision 0
 
-        Sometimes the installer wants you to place it under C:\Program Files\mingw etc. but i placed it in C:\MinGW-W64. 
-        The folder contains
-        a mingw-w64.bat, a link to mingw website, uninstaller and a folder called mingw64.
+  Sometimes the installer wants you to place it under C:\Program Files\mingw etc. but i placed it in 
+  
+    C:\MinGW-W64. 
+    
+  The folder contains a mingw-w64.bat, a link to mingw website, uninstaller and a folder called mingw64.
 
 2. ***Warning! Messing with env tables might cause some programs to not run, so don't go all Rambo on this part***
-        Set mingw to PATH:
-        Run (on you keyboard Win+R) SystemPropertiesAdvanced. This should open up System Properties window.
+   Set mingw to PATH:
+   
+   Run (on you keyboard Win+R) SystemPropertiesAdvanced. This should open up System Properties window.
 
-        Click Environment Variables. And under System variables look for entry that's Variable is Path. Click it, and press Edit.. 
-        and New, then Browse.
-        Now you should point to the folder called bin inside mingw64 folder. Mine looks like this: C:\MinGW-W64\mingw64\bin .
-        Then slap them ok buttons until the windows have disappeared.
+   Click Environment Variables. And under System variables look for entry that's Variable is Path. Click it, and press Edit.. 
+   and New, then Browse.
+   Now you should point to the folder called bin inside mingw64 folder. Mine looks like this: C:\MinGW-W64\mingw64\bin .
+   Then slap them ok buttons until the windows have disappeared.
         
-        To test if this is set correctly, open command prompt (Win+R, type cmd) and write g++ --version . This should give 
-        you version information on g++, the c++ compiler.
+   To test if this is set correctly, open command prompt (Win+R, type cmd) and write g++ --version . This should give 
+   you version information on g++, the c++ compiler.
 
 3. Next step was downloading and installing CLion. It should be pretty straightforward to download, install and setup. 
-        Checking compiler settings, it should recognize mingw and all its required executables.
+   Checking compiler settings, it should recognize mingw and all its required executables.
 
 4. Download libraries and FindSDL2.cmake file.
-        Once you've finished downloading the SDL2 and libtcod packages we need to set them up so that they are easily accessible.
-        Go ahead and make a folder tree like this C:\Dev\CPP\
-        Inside this folder place the extracted SDL2 and libtcod folders. On my system the CPP 
-        folder contains libtcod-1.12.3-x86_64-mingw folder and a SDL2-2.0.9 folder.
-        Next you should make a CMake folder, and inside that a Modules folder. Example: C:\Dev\CPP\CMake\Modules
-        Now download the FindSDL2.cmake file, and place it in this folder. This file is used to make CMake find the sdl2 library.
+
+   Once you've finished downloading the SDL2 and libtcod packages we need to set them up so that they are easily accessible.
+   Go ahead and make a folder tree like this C:\Dev\CPP\
+   Inside this folder place the extracted SDL2 and libtcod folders. On my system the CPP 
+   folder contains libtcod-1.12.3-x86_64-mingw folder and a SDL2-2.0.9 folder.
+   Next you should make a CMake folder, and inside that a Modules folder. Example: C:\Dev\CPP\CMake\Modules
+   Now download the FindSDL2.cmake file, and place it in this folder. This file is used to make CMake find the sdl2 library.
 
 5. Lets create a project in CLion.
-        In the New Project window, choose the C++ Executable option. I left my language standard as C++14.
-        Set the location of your project somewhere convenient for you, I used C:/Dev/Projects/nameOfYourProject
-        To make sure that the compiler is setup correctly, you should try running the basic hello world 
-        program that clion generates for you (Shift+F10).
-        This should show you text "Hello, World!" in the clions run window.
-        ***This is important so that cmake makes a build directory (in my case it was cmake-build-debug)
+   In the New Project window, choose the C++ Executable option. I left my language standard as C++14.
+   Set the location of your project somewhere convenient for you, I used C:/Dev/Projects/nameOfYourProject
+   To make sure that the compiler is setup correctly, you should try running the basic hello world 
+   program that clion generates for you (Shift+F10).
+   This should show you text "Hello, World!" in the clions run window.
+   ***This is important so that cmake makes a build directory (in my case it was cmake-build-debug)***
 
 6. Lets add some libraries.
-        Inside your project folder you should make lib, include and src folders. 
-        Move the main.cpp to the src folder inside CLion. CLion should automatically make this change in the cmake file.
-        Next up the libtcod. Inside the extracted libtcod folder 
-        (mine was: C:\Dev\CPP\libtcod-1.12.3-x86_64-mingw) there should be a include folder. 
-        Select all, and copy them to your projects include folder.
-        Then inside libtcod folder you should see a libtcod.a file. Copy this to your projects lib folder. 
-        SDL2 doesn't need the same treatment because of the FindSDL2.cmake file.
-        Next we need couple of .dll's and a .png file (libtcod uses it) to make the executable work when we finally run it.
-        From the libtcod folder copy the libtcod.dll, SDL2.dll and terminal.png files, and place them in the 
-        build directory of your project. If you built the basic hello world program, you project folder
-        should have a cmake-build-debug folder. Place the three files there.
+    Inside your project folder you should make lib, include and src folders. 
+    Move the main.cpp to the src folder inside CLion. CLion should automatically make this change in the cmake file.
+    Next up the libtcod. Inside the extracted libtcod folder 
+    (mine was: C:\Dev\CPP\libtcod-1.12.3-x86_64-mingw) there should be a include folder. 
+    Select all, and copy them to your projects include folder.
+    Then inside libtcod folder you should see a libtcod.a file. Copy this to your projects lib folder. 
+    SDL2 doesn't need the same treatment because of the FindSDL2.cmake file.
+    Next we need couple of .dll's and a .png file (libtcod uses it) to make the executable work when we finally run it.
+    From the libtcod folder copy the libtcod.dll, SDL2.dll and terminal.png files, and place them in the 
+    build directory of your project. If you built the basic hello world program, you project folder
+    should have a cmake-build-debug folder. Place the three files there.
 
 7. Next we tackle the infamous CMakeLists.txt. Under the "set(CMAKE_CZZ_STANDARD 14)" line, I added the following:
 
@@ -106,7 +110,8 @@ o to give back to the RogueLikeDev community I documented my steps and made this
 
     And finally the last line:
     
-          target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} tcod) - Here we tell to link given variables.
+          target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} tcod)
+    Here we tell to link given variables.
 
     CLion should tell you that you need to reload for changes to apply, press Reload Changes.
 

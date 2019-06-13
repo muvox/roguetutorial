@@ -80,38 +80,56 @@ o to give back to the RogueLikeDev community I documented my steps and made this
 
 7. Next we tackle the infamous CMakeLists.txt. Under the "set(CMAKE_CZZ_STANDARD 14)" line, I added the following:
 
-          set(CMAKE_MODULE_PATH "C:/Dev/CPP/CMake/Modules")
-    this specifies the folder where cmake should look for the FindSDL2.cmake.
-  
-          set(SDL2_PATH "C:/Dev/CPP/SDL2-2.0.9/x86_64-w64-mingw32")
-    this one tells cmake where the SDL2 itself is
-  
+      This specifies the folder where cmake should look for the FindSDL2.cmake.
+      
+           set(CMAKE_MODULE_PATH "C:/Dev/CPP/CMake/Modules")
+          
+          
+      this one tells cmake where the SDL2 itself is
+      
+           set(SDL2_PATH "C:/Dev/CPP/SDL2-2.0.9/x86_64-w64-mingw32")
+    
+    
+      With this we can link the SDL library to our project.
+      
           find_package(SDL2 REQUIRED)
-    With this we can link the SDL library to our project.
+          
     
-          include_directories(${SDL2_INCLUDE_DIR}) 
-    I believe SDL2_INCLUDE_DIR is a variable passed to us by the FindSDL2.cmake. With this we tell the cmake where SDL's own include directory is.
+    I believe SDL2_INCLUDE_DIR is a variable passed to us by the FindSDL2.cmake. With this we tell the cmake where SDL's own include directory is.    
     
-          include_directories(${PROJECT_SOURCE_DIR}/include)
+           include_directories(${SDL2_INCLUDE_DIR}) 
+    
+    
     This one tells cmake where our own include directory is
     
-          link_directories(${PROJECT_SOURCE_DIR}/lib)
+          include_directories(${PROJECT_SOURCE_DIR}/include)
+          
+    
     This one tells cmake where to find library files (.lib and .a (maybe just libname without extension on linux))
     
-          file(GLOB TCODINC ${PROJECT_SOURCE_DIR}/include/*.h ${PROJECT_SOURCE_DIR}/include/*.hpp)
+          link_directories(${PROJECT_SOURCE_DIR}/lib)
+    
+    
     Here we tell cmake to find all .h and .hpp files for libtcod (Hence the TCODINC variable name).
     
-          set(SOURCE_FILES src/main.cpp ${TCODINC} )
-    Here we set a variable for our source files + TCODINC header files.
+          file(GLOB TCODINC ${PROJECT_SOURCE_DIR}/include/*.h ${PROJECT_SOURCE_DIR}/include/*.hpp)
 
-    Next is the line that was already there, edit it like this:
+
+    Here we set a variable for our source files + TCODINC header files.
+    
+          set(SOURCE_FILES src/main.cpp ${TCODINC} )
+
+
+    Next is the line that was already there, edit it like this:    
     
           add_executable(YourProjectName ${SOURCE_FILES} )
+          
 
-    And finally the last line:
+    And finally the last line where we tell to link given variables.
     
           target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} tcod)
-    Here we tell to link given variables.
+          
+          
 
     CLion should tell you that you need to reload for changes to apply, press Reload Changes.
 

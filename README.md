@@ -81,6 +81,7 @@ o to give back to the RogueLikeDev community I documented my steps and made this
 7. Next we tackle the infamous CMakeLists.txt. Under the "set(CMAKE_CZZ_STANDARD 14)" line, I added the following:
 
       Linker flags so we dont need to send mingw dll files if we want to share our small .exe:
+      
             set (CMAKE_CXX_FLAGS "-lmingw32 -static-libgcc -static-libstdc++")
 
       This specifies the folder where cmake should look for the FindSDL2.cmake.

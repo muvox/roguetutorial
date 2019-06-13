@@ -30,7 +30,7 @@ o to give back to the RogueLikeDev community I documented my steps and made this
         The folder contains
         a mingw-w64.bat, a link to mingw website, uninstaller and a folder called mingw64.
 
-2.      ***Warning! Messing with env tables might cause some programs to not run, so don't go all Rambo on this part***
+2. ***Warning! Messing with env tables might cause some programs to not run, so don't go all Rambo on this part***
         Set mingw to PATH:
         Run (on you keyboard Win+R) SystemPropertiesAdvanced. This should open up System Properties window.
 
@@ -42,10 +42,10 @@ o to give back to the RogueLikeDev community I documented my steps and made this
         To test if this is set correctly, open command prompt (Win+R, type cmd) and write g++ --version . This should give 
         you version information on g++, the c++ compiler.
 
-3.      Next step was downloading and installing CLion. It should be pretty straightforward to download, install and setup. 
+3. Next step was downloading and installing CLion. It should be pretty straightforward to download, install and setup. 
         Checking compiler settings, it should recognize mingw and all its required executables.
 
-4.      Download libraries and FindSDL2.cmake file.
+4. Download libraries and FindSDL2.cmake file.
         Once you've finished downloading the SDL2 and libtcod packages we need to set them up so that they are easily accessible.
         Go ahead and make a folder tree like this C:\Dev\CPP\
         Inside this folder place the extracted SDL2 and libtcod folders. On my system the CPP 
@@ -53,7 +53,7 @@ o to give back to the RogueLikeDev community I documented my steps and made this
         Next you should make a CMake folder, and inside that a Modules folder. Example: C:\Dev\CPP\CMake\Modules
         Now download the FindSDL2.cmake file, and place it in this folder. This file is used to make CMake find the sdl2 library.
 
-5.      Lets create a project in CLion.
+5. Lets create a project in CLion.
         In the New Project window, choose the C++ Executable option. I left my language standard as C++14.
         Set the location of your project somewhere convenient for you, I used C:/Dev/Projects/nameOfYourProject
         To make sure that the compiler is setup correctly, you should try running the basic hello world 
@@ -61,7 +61,7 @@ o to give back to the RogueLikeDev community I documented my steps and made this
         This should show you text "Hello, World!" in the clions run window.
         ***This is important so that cmake makes a build directory (in my case it was cmake-build-debug)
 
-6.      Lets add some libraries.
+6. Lets add some libraries.
         Inside your project folder you should make lib, include and src folders. 
         Move the main.cpp to the src folder inside CLion. CLion should automatically make this change in the cmake file.
         Next up the libtcod. Inside the extracted libtcod folder 
@@ -74,32 +74,45 @@ o to give back to the RogueLikeDev community I documented my steps and made this
         build directory of your project. If you built the basic hello world program, you project folder
         should have a cmake-build-debug folder. Place the three files there.
 
-7.      Next we tackle the infamous CMakeLists.txt.
-        Under the "set(CMAKE_CZZ_STANDARD 14)" line, I added the following:
-          set(CMAKE_MODULE_PATH "C:/Dev/CPP/CMake/Modules") - this specifies the folder where cmake should look for the FindSDL2.cmake.
-          set(SDL2_PATH "C:/Dev/CPP/SDL2-2.0.9/x86_64-w64-mingw32") - this one tells cmake where the SDL2 itself is
-          find_package(SDL2 REQUIRED)  - With this we can link the SDL library to our project.
-          include_directories(${SDL2_INCLUDE_DIR}) - I believe SDL2_INCLUDE_DIR is a variable passed to us by the FindSDL2.cmake. 
-          With this we tell the cmake where SDL's own include directory is.
-          include_directories(${PROJECT_SOURCE_DIR}/include)  - This one tells cmake where our own include directory is
-          link_directories(${PROJECT_SOURCE_DIR}/lib) - This one tells cmake where to find 
-          library files (.lib and .a (maybe just libname without extension on linux))
-          file(GLOB TCODINC ${PROJECT_SOURCE_DIR}/include/*.h ${PROJECT_SOURCE_DIR}/include/*.hpp) - Here we tell 
-          cmake to find all .h and .hpp files for libtcod (Hence the TCODINC variable name).
-          set(SOURCE_FILES src/main.cpp ${TCODINC} ) - here we set a variable for our source files + TCODINC header files.
+7. Next we tackle the infamous CMakeLists.txt. Under the "set(CMAKE_CZZ_STANDARD 14)" line, I added the following:
 
-          Next is the line that was already there, edit it like this:
+          set(CMAKE_MODULE_PATH "C:/Dev/CPP/CMake/Modules")
+    this specifies the folder where cmake should look for the FindSDL2.cmake.
+  
+          set(SDL2_PATH "C:/Dev/CPP/SDL2-2.0.9/x86_64-w64-mingw32")
+    this one tells cmake where the SDL2 itself is
+  
+          find_package(SDL2 REQUIRED)
+    With this we can link the SDL library to our project.
+    
+          include_directories(${SDL2_INCLUDE_DIR}) 
+    I believe SDL2_INCLUDE_DIR is a variable passed to us by the FindSDL2.cmake. With this we tell the cmake where SDL's own include directory is.
+    
+          include_directories(${PROJECT_SOURCE_DIR}/include)
+    This one tells cmake where our own include directory is
+    
+          link_directories(${PROJECT_SOURCE_DIR}/lib)
+    This one tells cmake where to find library files (.lib and .a (maybe just libname without extension on linux))
+    
+          file(GLOB TCODINC ${PROJECT_SOURCE_DIR}/include/*.h ${PROJECT_SOURCE_DIR}/include/*.hpp)
+    Here we tell cmake to find all .h and .hpp files for libtcod (Hence the TCODINC variable name).
+    
+          set(SOURCE_FILES src/main.cpp ${TCODINC} )
+    Here we set a variable for our source files + TCODINC header files.
+
+    Next is the line that was already there, edit it like this:
+    
           add_executable(YourProjectName ${SOURCE_FILES} )
 
-          and finally the last line:
-
+    And finally the last line:
+    
           target_link_libraries(${CMAKE_PROJECT_NAME} ${SDL2_LIBRARY} tcod) - Here we tell to link given variables.
 
-          CLion should tell you that you need to reload for changes to apply, press Reload Changes.
+    CLion should tell you that you need to reload for changes to apply, press Reload Changes.
 
-8.        Lets make a quick and simple roguelike:
-          In main.cpp:
-
+8.  Lets make a quick and simple roguelike:
+    In main.cpp:
+    
           #include "libtcod.h"
 
           int main() {
@@ -122,8 +135,8 @@ o to give back to the RogueLikeDev community I documented my steps and made this
               return 0;
           }
 
-          Then slap that sweet Shift+F10 to build and run and you should get a small window with our favorite little character. 
-          You might notice from the code above that we can actually move the dude with arrow keys.
+  Then slap that sweet Shift+F10 to build and run and you should get a small window with our favorite little character. 
+  You might notice from the code above that we can actually move the dude with arrow keys.
 
 # Final Words
 

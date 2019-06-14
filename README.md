@@ -4,11 +4,10 @@ Tutorial for setting up CLion, CMake, libtcod and SDL2
 
 I'm writing this tutorial in hopes that it gives a simple(as possible) and a straightforward way to 
 setup a CLion project with SDL2 and libtcod libraries.
-For myself it took better part of a week to get all this setup, working and running. My Clion version 
-at the time of writing was 2019.1.4.
+Clion version 2019.1.4 used at the time of writing.
 
-I'm in no way a professional on these matters, it almost feels like I accidentally got this working. 
-o to give back to the RogueLikeDev community I documented my steps and made this tutorial.
+I'm in no way a professional on these matters, but i hope this helps you get started. 
+To to give back to the RogueLikeDev community I documented my steps and made this tutorial.
 
 #Links
   - MinGW-w64 - https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download

@@ -3,7 +3,7 @@ project(roguetutorial)              #Project name
 
 set(CMAKE_CXX_STANDARD 14)  #Standard
 
-set (CMAKE_CXX_FLAGS "-lmingw32 -static-libgcc -static-libstdc++")
+set (CMAKE_CXX_FLAGS "-lmingw32 -static-libgcc -static-libstdc++") #Linker flags so we dont have to supply all the dll files
 
 set(CMAKE_MODULE_PATH "C:/Dev/CPP/CMake/Modules") #Location of custom modules, i.e. FindSDL2.cmake
 

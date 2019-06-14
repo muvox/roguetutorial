@@ -7,7 +7,7 @@ setup a CLion project with SDL2 and libtcod libraries.
 Clion version 2019.1.4 used at the time of writing.
 
 I'm in no way a professional on these matters, but i hope this helps you get started. 
-To to give back to the RogueLikeDev community I documented my steps and made this tutorial.
+This tutorial was made with RogueLikeDev community in mind.
 
 #Links
   - MinGW-w64 - https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download
@@ -17,7 +17,7 @@ To to give back to the RogueLikeDev community I documented my steps and made thi
   - FindSDL2.cmake - https://github.com/tcbrindle/sdl2-cmake-scripts/blob/master/FindSDL2.cmake
 
 #Setup
-1. First thing you should do i install mingw-w64. I'm using Windows 10-64 so I installed mingw-w64.
+1. First thing you should do is install mingw-w64. I'm using Windows 10-64 so I installed mingw-w64.
         In the installer I chose:
           - version as 8.1.0
           - Architecture x86_64
